@@ -2,8 +2,6 @@ var IP_URL = "http://45.55.27.243:3000/ip/"
 var width;
 var height;
 var map;
-var geocoder;
-var countries = {};
 var hits = 0;
 var tps = 0;
 var seconds = 0;
@@ -60,13 +58,11 @@ function setupMap() {
 	    rotateControl: false
   	}
 	map = new google.maps.Map(document.getElementById('map'), mapOptions);
-	geocoder = new google.maps.Geocoder;
 }
 
 function setupWebSocket() {
 	var bitcoinSocket = new WebSocket("wss://ws.blockchain.info/inv");
 	bitcoinSocket.onopen = function (event) {
-		console.log("Socket opened");
 		var msg = {
 			op: "unconfirmed_sub"
 		};
@@ -92,7 +88,6 @@ function setupWebSocket() {
 
 function findIPLocation(ip) {
 	$.get(IP_URL + ip, "json").done(function(data) {
-		console.log(data);
 		plotAddress(data.split(","));
 	});
 }
@@ -106,40 +101,6 @@ function plotAddress(loc) {
 	});
 
 	marker.setMap(map);
-
-	//getCountry(latlng);
-}
-
-function getCountry(latlng) {
-	geocoder.geocode({'location':latlng}, function(results, status) {
-		if (status === google.maps.GeocoderStatus.OK) {
-			if (results[1]) {
-				if (results[1].address_components[5] != undefined) {
-					var countryName = results[1].address_components[5].long_name;
-					console.log(countryName);
-					if (countryName in countries) {
-						countries[countryName] += 1;
-					} else {
-						countries[countryName] = 1;
-					}
-					updateCountryChart();
-				}
-			}
-		}
-	});
-
-}
-
-function updateCountryChart() {
-	$('#countries').empty();
-	var cList = $('#countries');
-	$.each(countries, function(key, value) {
-		var li = $('<li/>')
-			.appendTo(cList);
-		var e = $('<p/>')
-			.text(key + " : " + value)
-			.appendTo(li);
-	});
 }
 
 function setWindowSize() {
