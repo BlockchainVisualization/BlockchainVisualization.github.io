@@ -1,1 +1,9 @@
-# BlockchainVisualization.github.io
+[BlockchainVisualization.github.io/](http://blockchainvisualization.github.io/)
+
+##Readme
+
+Created for CalHacks 2.0. Utilizes the [Blockchain Websocket API](https://blockchain.info/api/api_websocket) and Google Maps to create a real-time representation of Bitcoin nodes globally.
+
+-Drake Levy
+<drakelevy@berkeley.edu>  
+[LinkedIn](https://www.linkedin.com/in/drakelevy)  
