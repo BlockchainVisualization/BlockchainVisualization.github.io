@@ -1,11 +1,14 @@
-var IP_URL = "http://45.55.27.243:3000/ip/"
 var width;
 var height;
 var map;
 var hits = 0;
 var tps = 0;
 var seconds = 0;
-var highest = 0;
+var highest = {
+	"amount" : 0,
+	"hash" : 0
+};
+var countries = {};
 
 $(document).ready(function() {
 	init();
@@ -40,10 +43,18 @@ var timer = function() {
 	tps = hits / seconds;
 	var transDom = document.getElementById("transactions");
 	transDom.innerHTML = "Transactions: " + hits;
+
 	var tpsDom = document.getElementById("tps");
 	tpsDom.innerHTML = "Transactions Per Second: " + tps.toFixed(3);
+
 	var highestDom = document.getElementById("highest");
-	highestDom.innerHTML = "Largest Transaction: " + (highest / 100000000).toFixed(5) + " BTC";
+	if (highest.hash != 0) {
+		blockchainLink = "https://blockchain.info/tx/" + highest.hash;
+		innerText = (highest.amount / 100000000).toFixed(5) + " BTC";
+		highestDom.innerHTML = "Largest Transaction: <a href='" + blockchainLink + "' target='_blank'>" + innerText + "</a>";
+	} else {
+		highestDom.innerHTML = "Largest Transaction: " + (highest.amount / 100000000).toFixed(5) + " BTC";
+	}
 }
 
 function setupMap() {
@@ -79,17 +90,27 @@ function setupWebSocket() {
 		var amounts = data.x.out;
 		for (var i = 0; i < amounts.length; i++) {
 			var val = amounts[i]['value'];
-			if (val != undefined && val > highest) {
-				highest = val;
+			if (val != undefined && val > highest.amount) {
+				highest.amount = val;
+				highest.hash = data.x.hash;
 			}
 		}
 	}
 }
 
 function findIPLocation(ip) {
-	$.get(IP_URL + ip, "json").done(function(data) {
-		plotAddress(data.split(","));
-	});
+	$.getJSON("http://www.telize.com/geoip/" + ip + "?callback=?",
+		function(json) {
+			if ("latitude" in json && "longitude" in json) {
+				plotAddress([json.latitude, json.longitude]);
+			}
+			if (json.country in countries) {
+				countries[json.country] += 1;
+			} else {
+				countries[json.country] = 1;
+			}
+		}
+	);
 }
 
 function plotAddress(loc) {
