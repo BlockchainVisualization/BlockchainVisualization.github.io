@@ -1,8 +1,9 @@
-[BlockchainVisualization.github.io/](http://blockchainvisualization.github.io/)
+[BlockchainVisualization.github.io](http://blockchainvisualization.github.io/)
 
-##BlockchainVisualization
+##BlockchainVisualization Readme
 
-Created for CalHacks 2.0. Utilizes the [Blockchain Websocket API](https://blockchain.info/api/api_websocket) and Google Maps to create a real-time representation of Bitcoin nodes globally.
+Utilizes the [Blockchain Websocket API](https://blockchain.info/api/api_websocket), [Telize GeoIP API](http://www.telize.com/), and Google Maps to create a real-time representation of Bitcoin nodes globally. 
+Also displays stats such as Bitcoin transactions per second and largest recent transaction.
 
 -Drake Levy  
 [Github](https://github.com/drakelevy)  
