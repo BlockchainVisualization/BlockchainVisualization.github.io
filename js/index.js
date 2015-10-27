@@ -12,6 +12,7 @@ var countries = {};
 
 $(document).ready(function() {
 	init();
+	alert("Blockchain is currently not sending IP data so markers will not show up.\nStatistics are still available though.");
 });
 
 $(window).resize(function() {
