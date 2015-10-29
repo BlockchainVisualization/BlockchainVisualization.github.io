@@ -1,5 +1,3 @@
-var width;
-var height;
 var map;
 var hits = 0;
 var tps = 0;
@@ -12,7 +10,6 @@ var countries = {};
 
 $(document).ready(function() {
 	init();
-	alert("Blockchain is currently not sending IP data so markers will not show up.\nStatistics are still available though.");
 });
 
 $(window).resize(function() {
@@ -99,6 +96,7 @@ function setupWebSocket() {
 	}
 }
 
+// Telize API, convert ip address to Lat/Lng approximation
 function findIPLocation(ip) {
 	$.getJSON("http://www.telize.com/geoip/" + ip + "?callback=?",
 		function(json) {
@@ -126,8 +124,8 @@ function plotAddress(loc) {
 }
 
 function setWindowSize() {
-	width = document.body.clientWidth;
-	height = document.body.clientHeight;
+	var width = document.body.clientWidth;
+	var height = document.body.clientHeight;
 
 	$('body').css('height', (height - 50) + "px");
 
