@@ -98,15 +98,15 @@ function setupWebSocket() {
 
 // Telize API, convert ip address to Lat/Lng approximation
 function findIPLocation(ip) {
-	$.getJSON("http://www.telize.com/geoip/" + ip + "?callback=?",
+	$.getJSON("https://freegeoip.net/json/" + ip,
 		function(json) {
 			if ("latitude" in json && "longitude" in json) {
 				plotAddress([json.latitude, json.longitude]);
 			}
-			if (json.country in countries) {
-				countries[json.country] += 1;
+			if (json.country_name in countries) {
+				countries[json.country_name] += 1;
 			} else {
-				countries[json.country] = 1;
+				countries[json.country_name] = 1;
 			}
 		}
 	);
