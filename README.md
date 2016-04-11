@@ -2,7 +2,7 @@
 
 ##BlockchainVisualization Readme
 
-Utilizes the [Blockchain Websocket API](https://blockchain.info/api/api_websocket), [FreeGeoIP](https://freegeoip.net), and Google Maps to create a real-time representation of Bitcoin nodes globally. 
+Utilizes the [Blockchain Websocket API](https://blockchain.info/api/api_websocket), [Nekudo GeoIP](http://geoip.nekudo.com/), and Google Maps to create a real-time representation of Bitcoin nodes globally. 
 Also displays stats such as Bitcoin transactions per second and largest recent transaction.
 
 -Drake Levy  
