@@ -96,17 +96,17 @@ function setupWebSocket() {
 	}
 }
 
-// Telize API, convert ip address to Lat/Lng approximation
+// geoIP, convert ip address to Lat/Lng approximation
 function findIPLocation(ip) {
-	$.getJSON("https://freegeoip.net/json/" + ip,
+	$.getJSON("https://geoip.nekudo.com/api/" + ip + "/en/short",
 		function(json) {
-			if ("latitude" in json && "longitude" in json) {
-				plotAddress([json.latitude, json.longitude]);
+			if ("latitude" in json.location && "longitude" in json.location) {
+				plotAddress([json.location.latitude, json.location.longitude]);
 			}
-			if (json.country_name in countries) {
-				countries[json.country_name] += 1;
+			if (json.country.name in countries) {
+				countries[json.country.name] += 1;
 			} else {
-				countries[json.country_name] = 1;
+				countries[json.country.name] = 1;
 			}
 		}
 	);
